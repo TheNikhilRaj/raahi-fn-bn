@@ -7,18 +7,38 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependency folders
+node_modules/
+**/node_modules/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Build output
+dist/
+dist-ssr/
+**/dist/
+**/build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS & IDE files
 .DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+
+# Ignore nested frontend/backend folders
+raahi-fr/node_modules/
+raahi-fr/dist/
+raahi-fr/.env
+raahi-back/node_modules/
+raahi-back/dist/
+raahi-back/.env
