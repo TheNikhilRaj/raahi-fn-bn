@@ -19,10 +19,13 @@ export default function MultiCard({ cards = [] }) {
                     )}
                     <h2 className="text-2xl font-serif font-medium">{card.subtitle}</h2>
                     {card.description && (
-                        <p className="mt-2 text-gray-600 text-sm px-4">
+                        <p className="mt-2 text-gray-600 text-sm line-clamp-4 px-4">
                             {card.description}
                         </p>
                     )}
+                    <div>
+                        <button className="ring-2 ring-slate-950 p-2 mt-3 hover:scale-105 transition duration-75"> Read More</button>
+                    </div>
                 </a>
             ))}
         </div>
