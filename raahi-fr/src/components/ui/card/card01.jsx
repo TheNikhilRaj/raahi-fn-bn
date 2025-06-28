@@ -1,7 +1,6 @@
-// components/ui/card/MultiCard.jsx
 export default function MultiCard({ cards = [] }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 w-full max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 w-full max-w-7xl m-[70px]">
             {cards.map((card, index) => (
                 <a
                     key={index}

@@ -28,13 +28,11 @@ export const postBlog = async (formData) => {
 
 export const fetchLatestBlogs = async () => {
     try {
-        const res = await fetch(`${API_BASE_URL}/blogs/latest`);
-        if (!res.ok) throw new Error("Failed to fetch latest blogs");
-        const data = await res.json();
-        return data;
+        const res = await axios.get(`${API_BASE_URL}/blogs/latest`);
+        return res.data.blogs;
     } catch (error) {
         console.error("API Error:", error);
-        return null;
+        return [];
     }
 };
 
@@ -50,3 +48,22 @@ export const getBlogsByUser = async (userId) => {
         return [];
     }
 };
+
+
+
+export const searchBlogs = async (country, state) => {
+
+    try {
+        const params = {};
+        if (country) params.country = country;
+        if (state) params.state = state
+
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs/search`, { params });
+        return res.data.blogs;
+    }
+    catch (err) {
+        console.error("Search failed", err);
+        return [];
+
+    }
+}

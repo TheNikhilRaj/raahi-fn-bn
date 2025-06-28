@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Country, State } from "country-state-city";
+import { searchBlogs } from "@/util/api";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearchResults }) {
+
+
     const [selectedCountry, setSelectedCountry] = useState("");
     const [selectedState, setSelectedState] = useState("");
     const [countries, setCountries] = useState([]);
@@ -23,21 +26,19 @@ export default function SearchBar() {
     }, [selectedCountry]);
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({
-            country: selectedCountry,
-            state: selectedState
-        });
-    };
 
+        const results = await searchBlogs(selectedCountry, selectedState);
+        onSearchResults(results); // Pass blogs to parent
+    };
 
 
 
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="max-w-[700px] flex flex-wrap items-end bg-white/30 backdrop-blur-sm border p-4 rounded shadow space-x-7">
+            <div className="max-w-[700px] flex flex-row items-end bg-white/30 backdrop-blur-sm border p-4 rounded shadow space-x-7 transition-transform duration-75">
 
                 {/* Country Dropdown */}
                 <div className="min-w-[200px]">

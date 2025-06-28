@@ -1,4 +1,3 @@
-// pages/MyBlogs.jsx
 import React, { useEffect, useState } from 'react';
 import MultiCard from '@/components/ui/card/card01';
 import { useUser } from '@clerk/clerk-react';
@@ -7,7 +6,7 @@ import { getBlogsByUser } from '@/util/api';
 function MyBlogs() {
   const { user } = useUser();
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user?.id) {
@@ -18,7 +17,6 @@ function MyBlogs() {
     }
   }, [user]);
 
-  // Convert blogs to the shape expected by MultiCard
   const cards = blogs.map((blog) => ({
     image: blog.image,
     title: blog.title,

@@ -9,6 +9,7 @@ const greetings = [
     { text: "안녕하세요", language: "Korean" },
     { text: "Ciao", language: "Italian" },
     { text: "Hallo", language: "German" },
+    { text: "नमस्ते", language: "Hindi" },
 ];
 
 export default function DynamicText() {

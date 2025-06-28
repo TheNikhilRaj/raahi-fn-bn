@@ -102,7 +102,7 @@ export default function BlogForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="max-w-7xl flex flex-col items-start bg-white/30 backdrop-blur-sm border p-4 rounded shadow space-y-3 mx-auto z-10">
+            <div className="max-w-6xl flex flex-col items-start bg-[#aaaaaa]/30 backdrop-blur-sm border p-4 rounded shadow space-y-3 mx-auto z-10">
 
                 {/* Title */}
                 <div className="w-full">

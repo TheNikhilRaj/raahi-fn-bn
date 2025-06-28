@@ -3,7 +3,8 @@ import multer from "multer";
 import {
     createBlog,
     getLatestBlogs,
-    getBlogsByUser
+    getBlogsByUser,
+    searchBlogs
 } from "../controllers/blog.js";
 
 const router = express.Router();
@@ -13,6 +14,8 @@ const upload = multer({ storage });
 
 router.post("/post", upload.single("image"), createBlog);
 router.get("/latest", getLatestBlogs);
+router.get("/search", searchBlogs);
+
 router.get("/:userId", getBlogsByUser);
 
 

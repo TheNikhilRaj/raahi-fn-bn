@@ -13,7 +13,7 @@ const Hero = () => {
         ));
 
     return (
-        <div className="min-h-screen lg:min-h-[550px]  bg-[#aaaaaa]/30 backdrop-blur-sm px-4 pt-10 pb-7 relative">
+        <div className="min-h-screen xl:min-h-[550px]  bg-[#aaaaaa]/30 backdrop-blur-sm px-4 pt-10 pb-7 relative">
             <div>
                 <div className="flex gap-1 -mt-5">{renderLetters(text1)}</div>
                 <div className="flex gap-1 -mt-9">{renderLetters(text2)}</div>

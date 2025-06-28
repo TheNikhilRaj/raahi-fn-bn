@@ -22,48 +22,41 @@ export default function Header() {
                     />
                 </Link>
 
-                {/* Navigation */}
-                <nav className="space-x-8 text-gray-700 text-xl font-extrabold font-[modern-serif] mr-4 flex items-center">
+                <nav className="flex items-center justify-end gap-6 px-4 py-2 text-gray-700 text-lg font-semibold font-sans">
                     <Link
                         to="/find"
-                        className="hover:text-indigo-600 hover:drop-shadow-[0_0_20px_rgba(0,0,0,0.5)] transition duration-150"
+                        className="hover:text-indigo-600 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] transition duration-150"
                     >
                         Find Blogs
                     </Link>
 
-                    <Link
-                        to="/about"
-                        className="hover:text-indigo-600 hover:drop-shadow-[0_0_20px_rgba(0,0,0,0.5)] transition duration-150"
-                    >
-                        About Us
-                    </Link>
-
-                    {/* Only show Post Blogs if user is signed in */}
                     {isSignedIn && (
                         <>
                             <Link
                                 to="/post"
-                                className="hover:text-indigo-600 hover:drop-shadow-[0_0_20px_rgba(0,0,0,0.5)] transition duration-150"
+                                className="hover:text-indigo-600 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] transition duration-150"
                             >
                                 Post Blog
                             </Link>
-
                             <Link
                                 to="/myblog"
-                                className="hover:text-indigo-600 hover:drop-shadow-[0_0_20px_rgba(0,0,0,0.5)] transition duration-150"
+                                className="hover:text-indigo-600 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] transition duration-150"
                             >
                                 My Blogs
                             </Link>
                         </>
                     )}
 
+                    <Link
+                        to="/about"
+                        className="hover:text-indigo-600 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] transition duration-150"
+                    >
+                        About Us
+                    </Link>
 
-
-
-                    {/* Auth buttons */}
                     <SignedOut>
                         <SignInButton mode="modal">
-                            <button className="px-3 py-2 shadow-lg hover:scale-105 hover:shadow-xl bg-indigo-600/85 text-white rounded-lg hover:bg-indigo-600 transition">
+                            <button className="px-3 py-1.5 bg-indigo-600/80 backdrop:blur-md text-white rounded-lg shadow hover:bg-indigo-700 hover:scale-105 transition duration-150">
                                 Sign In
                             </button>
                         </SignInButton>
@@ -73,6 +66,7 @@ export default function Header() {
                         <UserButton afterSignOutUrl="/" />
                     </SignedIn>
                 </nav>
+
             </div>
         </header>
     );

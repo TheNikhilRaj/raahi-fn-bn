@@ -70,10 +70,10 @@ export const getLatestBlogs = async (req, res) => {
             .sort({ createdAt: -1 })
             .limit(8);
 
-        res.status(200).json(blogs);
+        res.status(200).json({ sucess: true, blogs });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Failed to fetch latest blogs" });
+        res.status(500).json({ success: false, message: "Server Error" });
     }
 };
 
@@ -81,7 +81,6 @@ export const getLatestBlogs = async (req, res) => {
 
 
 
-// GET /blogs/user/:userId
 export const getBlogsByUser = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -92,5 +91,25 @@ export const getBlogsByUser = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
+
+
+
+
+export const searchBlogs = async (req, res) => {
+    try {
+        const { country, state } = req.query;
+
+        const query = {};
+        if (country) query.country = country;
+        if (state) query.state = state;
+
+        const blogs = await Blog.find(query).sort({ createdAt: -1 });
+
+        res.status(200).json({ success: true, blogs });
+    } catch (err) {
+        console.error("Search error:", err);
+        res.status(500).json({ error: "Failed to search blogs." });
     }
 };
