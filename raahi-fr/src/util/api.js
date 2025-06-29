@@ -8,7 +8,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL;
 export const postBlog = async (formData) => {
     try {
         const res = await axios.post(
-            `${API_BASE_URL}/blogs/post`, // or use NEXT_PUBLIC if using Next.js
+            `${API_BASE_URL}/blogs/post`,
             formData,
             {
                 headers: {

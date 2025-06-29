@@ -51,8 +51,8 @@ export default function CardGrid() {
                             title={item.title}
                             subtitle={item.subtitle}
                             image={item.image}
-                            badge={{ text: "New", variant: "orange" }} // you can customize this
-                            href={`/blog/${item._id}`} // if routing to blog detail
+                            badge={{ text: "New", variant: "orange" }}
+                            href={`/blog/${item._id}`}
                         />
                     ))}
                 </div>

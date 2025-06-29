@@ -5,13 +5,11 @@ import { useUser } from "@clerk/clerk-react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 export default function BlogForm() {
-    const { user } = useUser(); // Clerk user object
+    const { user } = useUser();
 
     const [selectedCountry, setSelectedCountry] = useState("");
     const [selectedState, setSelectedState] = useState("");
-
     const [countries, setCountries] = useState([]);
     const [states, setStates] = useState([]);
 
@@ -28,9 +26,35 @@ export default function BlogForm() {
     const [imageFile, setImageFile] = useState(null);
     const [loading, setLoading] = useState(false);
 
+
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setInfo((prev) => ({ ...prev, [name]: value }));
+    // };
+
+
+
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setInfo((prev) => ({ ...prev, [name]: value }));
+        let finalValue = value;
+
+        if (name === "description") {
+            finalValue = value
+                .replace(/[^\p{L}\p{N}\p{P}\p{Z}\p{Emoji}]/gu, "")
+                .slice(0, 1000);
+        } else {
+            finalValue = value
+                .replace(/[^\p{L}\p{N}\p{P}\p{Z}\p{Emoji}]/gu, "")
+                .slice(0, 500);
+        }
+
+        setInfo((prev) => ({
+            ...prev,
+            [name]: finalValue,
+        }));
     };
 
     useEffect(() => {
@@ -44,12 +68,6 @@ export default function BlogForm() {
         }
     }, [selectedCountry]);
 
-
-
-
-
-
-
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -60,17 +78,15 @@ export default function BlogForm() {
         }
 
         setLoading(true);
-
         const formData = new FormData();
 
-        // Add text fields
         Object.entries(info).forEach(([key, value]) => {
             formData.append(key, value);
         });
 
         formData.append("country", selectedCountry);
         formData.append("state", selectedState);
-        formData.append("userId", user.id); // Clerk user ID
+        formData.append("userId", user.id);
 
         if (imageFile) {
             formData.append("image", imageFile);
@@ -79,11 +95,7 @@ export default function BlogForm() {
         try {
             await postBlog(formData);
             toast.success("✅ Blog posted successfully!");
-
-            // Delay for user to see the toast, then navigate
-            setTimeout(() => {
-                navigate("/myblog");
-            }, 1500);
+            setTimeout(() => navigate("/myblog"), 1500);
         } catch (error) {
             console.error("Blog post failed:", error);
             toast.error(error.error || "❌ Blog submission failed.");
@@ -92,69 +104,48 @@ export default function BlogForm() {
         }
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <form onSubmit={handleSubmit}>
             <div className="max-w-6xl flex flex-col items-start bg-[#aaaaaa]/30 backdrop-blur-sm border p-4 rounded shadow space-y-3 mx-auto z-10">
 
-                {/* Title */}
                 <div className="w-full">
                     <label htmlFor="title" className="block mb-2 font-medium">Enter Title:</label>
-                    <input type="text" name="title" value={info.title} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" placeholder="Title" />
+                    <input type="text" name="title" value={info.title} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" placeholder="Title" required />
                 </div>
 
-                {/* Subtitle */}
                 <div className="w-full">
                     <label htmlFor="subtitle" className="block mb-2 font-medium">Enter Subtitle:</label>
-                    <input type="text" name="subtitle" value={info.subtitle} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" placeholder="Subtitle" />
+                    <input type="text" name="subtitle" value={info.subtitle} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" placeholder="Subtitle" required />
                 </div>
 
-                {/* Description */}
                 <div className="w-full">
                     <label htmlFor="description" className="block mb-2 font-medium">Blog Description:</label>
-                    <textarea name="description" value={info.description} onChange={handleChange} rows="4" placeholder="Enter your blog description..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <textarea name="description" value={info.description} onChange={handleChange} rows="4" placeholder="Enter your blog description..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
 
-                {/* Liked */}
                 <div className="w-full">
                     <label htmlFor="liked" className="block mb-2 font-medium">What did you like about the place?</label>
-                    <textarea name="liked" value={info.liked} onChange={handleChange} rows="3" placeholder="Share what you liked..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <textarea name="liked" value={info.liked} onChange={handleChange} rows="3" placeholder="Share what you liked..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
 
-                {/* Pros */}
                 <div className="w-full">
                     <label htmlFor="pros" className="block mb-2 font-medium">Pros of the place:</label>
-                    <textarea name="pros" value={info.pros} onChange={handleChange} rows="3" placeholder="Mention the pros..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                    <textarea name="pros" value={info.pros} onChange={handleChange} rows="3" placeholder="Mention the pros..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required />
                 </div>
 
-                {/* Cons */}
                 <div className="w-full">
                     <label htmlFor="cons" className="block mb-2 font-medium">Cons of the place:</label>
-                    <textarea name="cons" value={info.cons} onChange={handleChange} rows="3" placeholder="Mention the cons..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <textarea name="cons" value={info.cons} onChange={handleChange} rows="3" placeholder="Mention the cons..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-red-500" required />
                 </div>
 
-                {/* Suggestions */}
                 <div className="w-full">
                     <label htmlFor="suggestions" className="block mb-2 font-medium">Suggestions or other places to visit:</label>
-                    <textarea name="suggestions" value={info.suggestions} onChange={handleChange} rows="3" placeholder="Suggest similar or better places..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    <textarea name="suggestions" value={info.suggestions} onChange={handleChange} rows="3" placeholder="Suggest similar or better places..." className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
                 </div>
 
-                {/* Country */}
                 <div className="w-full">
                     <label htmlFor="country" className="block mb-2 font-medium">Select Country:</label>
-                    <select id="country" name="country" value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)} className="border border-gray-300 p-2 rounded w-full">
+                    <select id="country" name="country" value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)} className="border border-gray-300 p-2 rounded w-full" required>
                         <option value="">-- Select Country --</option>
                         {countries.map((country) => (
                             <option key={country.isoCode} value={country.isoCode}>{country.name}</option>
@@ -162,10 +153,9 @@ export default function BlogForm() {
                     </select>
                 </div>
 
-                {/* State */}
                 <div className="w-full">
                     <label htmlFor="state" className="block mb-2 font-medium">Select State:</label>
-                    <select id="state" name="state" value={selectedState} onChange={(e) => setSelectedState(e.target.value)} className="border border-gray-300 p-2 rounded w-full" disabled={!selectedCountry}>
+                    <select id="state" name="state" value={selectedState} onChange={(e) => setSelectedState(e.target.value)} className="border border-gray-300 p-2 rounded w-full" disabled={!selectedCountry} required>
                         <option value="">-- Select State --</option>
                         {states.map((state) => (
                             <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
@@ -173,9 +163,8 @@ export default function BlogForm() {
                     </select>
                 </div>
 
-                {/* Image Upload */}
                 <div className="w-full">
-                    <label htmlFor="image" className="block mb-2 font-medium">Upload A Potrait Image (JPG, JPEG, PNG):</label>
+                    <label htmlFor="image" className="block mb-2 font-medium">Upload A Portrait Image (JPG, JPEG, PNG):</label>
                     <input
                         type="file"
                         name="image"
@@ -186,13 +175,11 @@ export default function BlogForm() {
                     />
                 </div>
 
-                {/* Submit */}
                 <div className="mt-6">
                     <button type="submit" disabled={loading} className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded shadow transition-all duration-200">
                         {loading ? "Posting..." : "Post"}
                     </button>
                 </div>
-
             </div>
         </form>
     );
