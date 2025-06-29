@@ -41,7 +41,7 @@ export const fetchLatestBlogs = async () => {
 
 export const getBlogsByUser = async (userId) => {
     try {
-        const res = await axios.get(`${API_BASE_URL}/blogs/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}/blogs/user/${userId}`);
         return res.data.blogs;
     } catch (error) {
         console.error("Failed to fetch user blogs", error);
@@ -67,3 +67,15 @@ export const searchBlogs = async (country, state) => {
 
     }
 }
+
+
+export const blogDetails = async (id) => {
+
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs/${id}`);
+        return res.data.blog;
+    } catch (error) {
+        console.error("Failed to fetch blog details:", error);
+        return null;
+    }
+};

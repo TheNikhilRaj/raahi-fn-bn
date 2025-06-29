@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import FindBlogs from "./pages/FindBlogs";
 import PostBlog from "./pages/PostBlog";
 import MyBlogs from "./pages/MyBlogs";
+import BlogDetails from "./pages/BlogDetails";
 import About from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
 
           <Route path="/post" element={
             <RequireAuth>
@@ -36,6 +38,9 @@ function App() {
           } />
 
           <Route path="/find" element={<FindBlogs />} />
+
+
+          <Route path="*" element={<Home />} />
         </Routes>
         <Footer />
       </div>

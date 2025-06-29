@@ -4,7 +4,8 @@ import {
     createBlog,
     getLatestBlogs,
     getBlogsByUser,
-    searchBlogs
+    searchBlogs,
+    blogDetails
 } from "../controllers/blog.js";
 
 const router = express.Router();
@@ -15,9 +16,9 @@ const upload = multer({ storage });
 router.post("/post", upload.single("image"), createBlog);
 router.get("/latest", getLatestBlogs);
 router.get("/search", searchBlogs);
+router.get("/:id", blogDetails)
 
-router.get("/:userId", getBlogsByUser);
-
+router.get("/user/:userId", getBlogsByUser);
 
 
 export default router;

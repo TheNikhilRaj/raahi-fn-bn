@@ -10,7 +10,7 @@ export default function MultiCard({ cards = [] }) {
                     <img
                         src={card.image}
                         alt={card.subtitle}
-                        className="w-full h-[500px] object-cover mb-4 rounded-md shadow-md transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-[500px] object-cover mb-4 rounded-md shadow-md group-hover:shadow-lg group-hover:shadow-slate-700 transition-all duration-300 group-hover:scale-[1.03]"
                     />
                     {card.title && (
                         <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">
