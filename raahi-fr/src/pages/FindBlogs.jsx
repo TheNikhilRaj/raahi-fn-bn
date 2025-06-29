@@ -30,9 +30,9 @@ export default function FindBlogs() {
                 <SearchBar onSearchResults={handleSearchResults} />
             </div>
 
-            <div className="px-4 sm:px-8 lg:px-20">
+            <div className="px-4 sm:px-8 lg:px-20 flex justify-center">
                 {!searched ? (
-                    <p className="text-gray-600 text-lg text-center mt-10">
+                    <p className="text-gray-600 text-lg text-center mt-10 items-center">
                         Your search results will show up here.
                     </p>
                 ) : blogs.length === 0 ? (

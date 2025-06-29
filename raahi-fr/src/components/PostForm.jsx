@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Country, State } from "country-state-city";
 import { postBlog } from "@/util/api";
 import { useUser } from "@clerk/clerk-react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 
 export default function BlogForm() {
     const { user } = useUser(); // Clerk user object
@@ -24,7 +27,6 @@ export default function BlogForm() {
 
     const [imageFile, setImageFile] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -48,6 +50,7 @@ export default function BlogForm() {
 
 
 
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,7 +60,6 @@ export default function BlogForm() {
         }
 
         setLoading(true);
-        setMessage("");
 
         const formData = new FormData();
 
@@ -70,18 +72,21 @@ export default function BlogForm() {
         formData.append("state", selectedState);
         formData.append("userId", user.id); // Clerk user ID
 
-        console.log(formData)
         if (imageFile) {
-            formData.append("image", imageFile); // Matches multer's .single("image")
+            formData.append("image", imageFile);
         }
 
         try {
-            const response = await postBlog(formData);
-            setMessage("✅ Blog posted successfully!");
-            console.log("Response:", response);
+            await postBlog(formData);
+            toast.success("✅ Blog posted successfully!");
+
+            // Delay for user to see the toast, then navigate
+            setTimeout(() => {
+                navigate("/myblog");
+            }, 1500);
         } catch (error) {
             console.error("Blog post failed:", error);
-            setMessage(error.error || "❌ Blog submission failed.");
+            toast.error(error.error || "❌ Blog submission failed.");
         } finally {
             setLoading(false);
         }
@@ -188,7 +193,6 @@ export default function BlogForm() {
                     </button>
                 </div>
 
-                {message && <p className="mt-2 text-sm">{message}</p>}
             </div>
         </form>
     );
