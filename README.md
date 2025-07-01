@@ -54,7 +54,7 @@ cd raahi
 ## 🌐 Frontend Setup (`raahi-fr/`)
 
 ```bash
-cd client
+cd raahi-fr
 npm install
 ```
 
@@ -78,7 +78,7 @@ npm run dev
 ## 🔧 Backend Setup (`raahi-back/`)
 
 ```bash
-cd server
+cd raahi-back
 npm install
 ```
 
